@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+
+<odoo>
+    <data>
+        <record id="backup_custom_message_wizard_view" model="ir.ui.view">
+            <field name="name">backup.custom.message.wizard.form</field>
+            <field name="model">backup.custom.message.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Backup Custom Message">
+                    <sheet>
+                        <field name="message" />
+                    </sheet>
+                    <footer class="d-flex justify-content-end">
+                        <button string="OK" class="btn btn-primary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_backup_custom_message_wizard" model="ir.actions.act_window">
+            <field name="name">Message</field>
+            <field name="res_model">backup.custom.message.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="backup_custom_message_wizard_view"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

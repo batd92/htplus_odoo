@@ -27,15 +27,15 @@ services:
             - PASSWORD=${POSTGRES_PASSWORD}
             - PORT=5432
         volumes:
-            - ./volumes/odoo:/var/lib/odoo
+            - ./volumes/odoo:/etc/odoo
             - ./addons:/mnt/extra-addons
-            - ./etc:/etc/odoo
             - ./odoo.conf:/etc/odoo/odoo.conf
         networks:
             - odoo_network
         restart: always
         ports:
             - "8069:8069"
+            - "8072:8072"
     nginx:
         image: nginx:latest
         container_name: nginx

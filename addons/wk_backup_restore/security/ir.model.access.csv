@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_backup_process,backup.process,model_backup_process,,1,1,1,1
+access_backup_process_detail,backup.process.detail,model_backup_process_detail,,1,1,1,1
+access_backup_deletion_confirmation_wizard,backup.deletion.confirmation,model_backup_deletion_confirmation,,1,1,1,1
+access_backup_remote_server,access.backup.remote.server,model_backup_remote_server,,1,1,1,1
+access_backup_custom_message_wizard,access.backup.custom.message.wizard,model_backup_custom_message_wizard,,1,1,1,1

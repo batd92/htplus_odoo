@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+
+<odoo>
+    <data>
+        <record id="backup_deletion_confirmation_wizard_view" model="ir.ui.view">
+            <field name="name">backup.deletion.confirmation.form</field>
+            <field name="model">backup.deletion.confirmation</field>
+            <field name="arch" type="xml">
+                <form string="Backup Process Deletion Confirmation">
+                    <sheet>
+                        <field name="message" readonly="1"/>
+                    </sheet>
+                    <footer class="d-flex justify-content-end">
+                        <button string="Cancel" class="btn-default" special="cancel"  />
+                        <button string='Delete' name="action_delete_backup_detail" type="object" class="btn-primary me-2" widget="many2many_buttons"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_backup_deletion_confirmation_wizard" model="ir.actions.act_window">
+            <field name="name">Backup Details Deletion Confirmation</field>
+            <field name="res_model">backup.deletion.confirmation</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="backup_deletion_confirmation_wizard_view"/>
+            <field name="context">{'default_backup_id': active_id}</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

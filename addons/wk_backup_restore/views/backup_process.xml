@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+
+<odoo>
+    <data>
+        <record id="backup_process_form_view" model="ir.ui.view">
+            <field name="name">Backup Process Form View</field>
+            <field name="model">backup.process</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="confirm_process" class="oe_highlight" string="Confirm" type="object" invisible="(state != 'draft')" />
+                        <button name="cancel_process" class="oe_highlight" string="Cancel" type="object" invisible="(state == 'running') or (state == 'cancel')" />
+                        <button name="remove_attached_cron" class="oe_highlight" string="Cancel Process" type="object" invisible="(state != 'running')" />
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                            <div class="" style="width: 500px;">
+                                <div class="oe_title" style="width: 500px;">
+                                    <label class="oe_edit_only" for="name" string="Name"/>
+                                    <h1><field name="name" class="oe_inline" readonly="1"/></h1>
+                                </div>
+                            </div>
+
+                            <group>
+
+                            </group>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <group>
+                                        <field name="frequency_cycle" required="1"/>
+                                        <field name="backup_starting_time" required="1" readonly="state != 'draft'"/>
+                                        <field name="db_name" required="1" readonly="state != 'draft'"/>
+                                        <field name="backup_format" required="1" readonly="(state != 'draft')"/>
+                                    </group>
+                                </div>
+                                <div class="col-md-6">
+                                    <group>
+                                        <field name="backup_location" required="1" readonly="state != 'draft'" />
+                                        <label for="remote_server_id" invisible="backup_location != 'remote'" required="backup_location == 'remote'" readonly="state != 'draft'" />
+                                        <div class="mb-2"  invisible="backup_location != 'remote'">
+                                            <field name="remote_server_id" invisible="backup_location != 'remote'" required="backup_location == 'remote'" readonly="state != 'draft'"/>
+                                            <br/>
+                                            <button string="Test Connection" name="test_host_connection" type="object" class="oe_highlight" invisible="not remote_server_id"/>
+                                        </div>
+                                        <field name="storage_path" required="1" readonly="state != 'draft'"/>
+                                        <field name="enable_retention" readonly="state != 'draft'"/>
+                                        <field name="retention" required="1" readonly="state != 'draft'" invisible="not enable_retention" />
+                                    </group>
+                                    <div class="text-muted mb-3" name="retention_note">
+                                        <strong invisible="not enable_retention and  backup_location in ['local', 'remote']">Note:</strong> 
+                                        <ul>
+                                            <li invisible="not enable_retention">After enabling Drop Database backup you need to set backup retention count.</li>
+                                            <li invisible="not enable_retention">The Backup Retention Count is the number of backups you wish to keep.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <notebook>
+                                <page name="backup_details" string="Backup Details">
+                                    <field name="backup_details_ids" readonly="1">
+                                        <list editable="bottom" create='false'>
+                                            <field name="backup_date_time" readonly="1" />
+                                            <field name="file_name" readonly="1" />
+                                            <field name="message" readonly="1" />
+                                            <field name="status" readonly="1" widget="badge" decoration-success="status == 'Success'" decoration-danger="status =='Failure'" />
+                                            <field name="backup_location" column_invisible="1" />
+                                            <button name="unlink_confirmation" type="object" title="Delete"  icon="fa-trash" class="btn-secondary me-2 text-muted" />
+                                            <button name="download_db_file" type="object" string="Download" class="oe_highlight" invisible="status != 'Success' or backup_location not in ['local', 'remote']"/>
+                                        </list>
+                                    </field>
+                                </page>
+                            </notebook>
+                    </sheet>
+                    <chatter />
+                </form>
+            </field>
+        </record>
+
+        <record id="backup_process_list_view" model="ir.ui.view">
+            <field name="name">Backup Process List View</field>
+            <field name="model">backup.process</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="frequency_cycle" />
+                    <field name="db_name" />
+                    <field name="storage_path" />
+                    <field name="backup_location" />
+                    <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-warning="state =='confirm'"  decoration-success="state =='running'" decoration-danger="state =='cancel'" />
+                </list>
+            </field>
+        </record>
+
+
+        <record id="backup_process_action_view" model="ir.actions.act_window">
+            <field name="name">Backup Process</field>
+            <field name="path">backup-process</field>
+            <field name="res_model">backup.process</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="backup_process_list_view"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create new backup process
+                </p><p>
+                    Configure backup processes to create the database backups.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

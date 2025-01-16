@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="backup_remote_server_form_view" model="ir.ui.view">
+            <field name="name">Backup Remote Server Form View</field>
+            <field name="model">backup.remote.server</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Reset to draft" name="reset_to_draft" type="object" class="oe_highlight" invisible="(state == 'draft')"/>
+                        <button string="Validate" name="set_validated" type="object" class="oe_highlight" invisible="(state != 'draft')"/>                    
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                            <div class="" style="width: 500px;">
+                                <div class="oe_title" style="width: 500px;">
+                                    <label class="oe_edit_only" for="name" string="Name"/>
+                                    <h1><field name="name" class="oe_inline" required="True" /></h1>
+                                </div>
+                            </div>
+
+                            <group name="sftp_details" string="SFTP Details">
+                                <group class="mt-2">
+                                    <field name="sftp_host" required="True" readonly="(state == 'validated')"/>
+                                    <field name="sftp_port" required="True" readonly="(state == 'validated')"/>
+                                    <field name="sftp_user" password="1" required="True" readonly="(state == 'validated')"/>
+                                    <label for="sftp_password"/>
+                                    <div>
+                                        <field name="sftp_password" password="1" required="True" readonly="(state == 'validated')"/>
+                                        <br/>
+                                        <button string="Test Connection" name="test_host_connection" type="object" class="oe_highlight"/>
+                                    </div>
+                                </group>
+                                <group class="mt-2">
+                                    <field name="def_backup_dir" required="True" readonly="(state == 'validated')"/>           
+                                    <label for="temp_backup_dir"/>
+                                    <div>
+                                        <field name="temp_backup_dir" required="True" readonly="(state == 'validated')"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <div class="row mt-4">
+                                <div class="col-md-12 text-muted" style="text-align:justify">
+                                    <p><strong>NOTE:</strong> Kindly ensure the below mentioned points before configuring the backup remote server:</p> 
+                                    <ol>
+                                        <li>The SFTP user must have the ssh access to the remote server.</li>
+                                        <li>The SFTP user must have the permissions and ownership of the default remote backup directory.</li>
+                                        <li>The temporary backup directory must be present on the main server along with the appropriate permissions for odoo user.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="backup_remote_server_list_view" model="ir.ui.view">
+            <field name="name">Backup Remote Server List View</field>
+            <field name="model">backup.remote.server</field>
+            <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                    <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-success="state =='validated'"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="backup_remote_server_search_view" model="ir.ui.view">
+            <field name="name">Backup Remote Servers Search</field>
+            <field name="model">backup.remote.server</field>
+            <field name="arch" type="xml">
+                <search string="Active Backup Remote Servers">
+                    <filter name="archived" string="Archived" domain="[('active', '=', False)]" />
+                </search>
+            </field>
+        </record>
+
+
+        <record id="backup_remote_server_action_view" model="ir.actions.act_window">
+            <field name="name">Backup Remote Server</field>
+            <field name="path">backup-remote-server</field>
+            <field name="res_model">backup.remote.server</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="backup_remote_server_list_view"/>
+        </record>
+
+    </data>
+
+</odoo>

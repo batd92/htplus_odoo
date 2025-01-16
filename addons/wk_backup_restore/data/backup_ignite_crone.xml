@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+
+<odoo>
+    <data>
+        <record id="backup_process_ignite_crone" model="ir.cron">
+            <field name="name">Backup Process Ignite Cron</field>
+            <field name="model_id" ref="model_backup_process"/>
+            <field name="state">code</field>
+            <field name="code">model.ignite_backup_server_crone()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+        </record>
+
+        <record id="backup_file_remove_cron" model="ir.cron">
+            <field name="name">Backup Process File Remove Cron</field>
+            <field name="model_id" ref="model_backup_process"/>
+            <field name="state">code</field>
+            <field name="code">model.remove_old_backups()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+        </record>
+    </data>
+</odoo>

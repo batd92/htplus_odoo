@@ -43,3 +43,8 @@ $ sudo chmod -R 777 addons
 $ sudo chmod -R 777 etc
 $ sudo chmod -R 777 volumes
 ```
+
+Open HRMS HR Dashboard
+==================
+
+```python3 -m pip install pandas --break-system-packages```
