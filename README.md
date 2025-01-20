@@ -8,7 +8,7 @@ The **addons/** folder contains custom addons. Just put your custom addons if yo
 
 * To change Odoo configuration, edit file: **odoo.conf**.
 * Log file: **etc/odoo-server.log**
-* Default database password (**admin_passwd**) is `htadmin@123`, please change it @ [etc/odoo.conf#L60](/etc/odoo.conf#L60)
+* Default database password (**admin_passwd**) is `htadmin@123`, please change it @ [/odoo.conf#L60](/odoo.conf#L60)
 
 ## Odoo container management
 
@@ -30,10 +30,11 @@ docker-compose restart
 docker-compose down
 ```
 
-## docker-compose.yml
+## Services in `docker-compose`
 
 * odoo:18
 * postgres:17
+* nginx
 
 
 - **If you get any permission issues**, change the folder permission to make sure that the container is able to access the directory:
@@ -44,13 +45,14 @@ $ sudo chmod -R 777 etc
 $ sudo chmod -R 777 volumes
 ```
 
-Open HRMS HR Dashboard
-==================
+#### Open HRMS HR Dashboard
+To install the required dependencies within the `odoo` container, please execute the following command inside the container:
 
 ```python3 -m pip install pandas --break-system-packages```
 
-Access: 
+Dashboard: 
 ======
 
 ```http://localhost/```
+
 <img width="1321" alt="image" src="https://github.com/user-attachments/assets/6478c4ec-0017-4af5-9420-33c62e79fae0" />
