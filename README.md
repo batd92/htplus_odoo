@@ -53,3 +53,4 @@ Access:
 ======
 
 ```http://localhost/```
+<img width="1321" alt="image" src="https://github.com/user-attachments/assets/6478c4ec-0017-4af5-9420-33c62e79fae0" />
