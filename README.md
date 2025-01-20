@@ -48,3 +48,8 @@ Open HRMS HR Dashboard
 ==================
 
 ```python3 -m pip install pandas --break-system-packages```
+
+Access: 
+======
+
+```http://localhost/```

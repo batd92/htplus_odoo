@@ -1,0 +1,9 @@
+.o_main_navbar {
+    > * {
+        z-index: 10;
+    }
+}
+
+a[data-menu-xmlid="htplus_menu.main_menu_root"] {
+    display: none !important;
+}
